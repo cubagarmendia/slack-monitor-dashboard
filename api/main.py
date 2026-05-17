@@ -16,7 +16,7 @@ from pydantic import BaseModel
 SKILL_DIR = Path("/home/ernesto/.openclaw/workspace/skills/slack-client-monitor")
 SCRIPT = SKILL_DIR / "scripts" / "check-channels.py"
 
-app = FastAPI(title="Slack Monitor Dashboard API")
+app = FastAPI(title="Slack Monitor Dashboard API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
