@@ -40,6 +40,7 @@ export default function Dashboard() {
       const [s, r] = await Promise.all([api.status(), api.report()]);
       setStatus(s);
       setReport(r.items || []);
+      setError(null);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Error loading data");
     }
