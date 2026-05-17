@@ -1,12 +1,6 @@
-// Use internal Next.js proxy to avoid mixed-content issues (HTTPS frontend → HTTP backend)
-const BASE = typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_URL || "http://178.156.222.29:8765");
-const API_PREFIX = typeof window !== "undefined" ? "/api/proxy" : "/api";
-
 export async function apiFetch(path: string, init?: RequestInit) {
-  // path is like "/api/status" — rewrite to "/api/proxy/status" on client
-  const url = typeof window !== "undefined"
-    ? path.replace(/^\/api\//, "/api/proxy/")
-    : `${BASE}${path}`;
+  // Always route through Next.js proxy to avoid mixed-content (HTTPS → HTTP)
+  const url = path.replace(/^\/api\//, "/api/proxy/");
   const res = await fetch(url, {
     ...init,
     headers: { "Content-Type": "application/json", ...init?.headers },
